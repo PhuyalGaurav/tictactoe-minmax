@@ -22,22 +22,39 @@ def player(board):
     """
     Returns player who has the next turn on a board.
     """
-    raise NotImplementedError
+    cnt = 0
+
+    for i in board:
+        for j in i:
+            if j != EMPTY:
+                cnt +=1
+
+    return "X" if ((cnt%2) == 1) else "O"
+    
 
 
 def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+    moves = []
+    for i, row in enumerate(board):
+        for j, value in enumerate(row):
+            if value == EMPTY:
+                moves.append((i,j))
+
+    return moves
+
 
 
 def result(board, action):
     """
     Returns the board that results from making move (i, j) on the board.
     """
-    raise NotImplementedError
-
+    i, j = action
+    new_board = [row[:] for row in board]
+    new_board[i][j] = player(board)
+    return new_board
 
 def winner(board):
     """
